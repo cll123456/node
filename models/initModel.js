@@ -1,0 +1,2 @@
+require('./asyncAllModels');
+require('relationTable');
