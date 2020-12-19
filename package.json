@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npx nodemon -x npm run serve",
+    "serve": "node index"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
     "log4js": "^6.3.0",
     "md5": "^2.3.0",
     "moment": "^2.29.1",
@@ -20,6 +22,7 @@
     "@types/node": "^14.14.12",
     "axios": "^0.21.0",
     "cheerio": "^1.0.0-rc.3",
-    "mockjs": "^1.1.0"
+    "mockjs": "^1.1.0",
+    "nodemon": "^2.0.6"
   }
 }

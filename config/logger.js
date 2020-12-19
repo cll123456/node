@@ -40,4 +40,4 @@ const sqlLogger = log4js.getLogger("sql");
 const defaultLogger = log4js.getLogger();
 // 导出两个记录日志的方法
 exports.sqlLogger = sqlLogger;
-exports.logger = defaultLogger;
+exports.defaultLogger = defaultLogger;

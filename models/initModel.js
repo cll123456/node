@@ -1,2 +1,2 @@
 require('./asyncAllModels');
-require('relationTable');
+require('./relationTable');
