@@ -55,21 +55,21 @@ exports.deleteStudent = async function (id) {
 
 /**
  * 分页查询
- * @param pageNumber {Number} 页码
- * @param pageSize {Number} 每页的条数
+ * @param pageNumber  页码
+ * @param pageSize  每页的条数
  * @returns {Promise<{total: number, datas: any}>}
  */
 exports.findByPage = async function ({pageNum = 1, pageSize = 10}) {
-    if (!Number(pageNum) || !Number(pageSize)) throw Error('pageNum and pageSize is not number');
+    if (!Number(pageNum) || !Number(pageSize)) throw new Error('pageNum and pageSize is not number');
     const r = await Student.findAndCountAll({
-        where: {
-            name: {
-                [Op.substring]: '陈' // like %亮%
-            }
-        },
+        // where: {
+        //     name: {
+        //         [Op.substring]: '陈' // like %亮%
+        //     }
+        // },
         offset: (pageNum - 1) * pageSize,
         limit: +pageSize,
-        attributes: ['name', 'birthday', 'sex', 'age'],
+        // attributes: ['name', 'birthday', 'sex', 'age'],
         include: {
             model: Class,
             attributes: ['name']

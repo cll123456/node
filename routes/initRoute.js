@@ -11,6 +11,8 @@ app.use(express.static(path.resolve(__dirname, '../public')));
 app.use(express.urlencoded({extended: true}))
 // 使用json 中间件来获取post contentTpe =application/json
 app.use(express.json())
+// 使用学生的api的基路径
+app.use('/api/student', require('./api/studentApi'));
 
 // 在最后使用错误中间件进行数据的返回
 app.use(require('./../middleware/errorMiddleware'));
