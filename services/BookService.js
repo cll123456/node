@@ -3,7 +3,7 @@ const Book = require('./../models/Book');
 const {addBookValidator, extBookIDValidator, updateBookValidator} = require("../validator/bookValidator");
 
 /**
- * 新增班级
+ * 新增图书
  * @param bookObj {Object}
  * @returns {Promise<object>}
  * @constructor
@@ -14,14 +14,14 @@ exports.addBook = async function (bookObj) {
     return ins.toJSON();
 }
 /**
- * 修改班级
+ * 修改图书
  * @param bookObj
  * @param id
  * @returns {Promise<[number, Model[]]>}
  * @constructor
  */
 exports.updateBook = async function (bookObj, id) {
-    await addBookValidator({...bookObj, ...{id}});
+    await updateBookValidator({...bookObj, ...{id}});
     return await Book.update(bookObj, {
         where: {
             id

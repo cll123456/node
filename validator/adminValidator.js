@@ -58,7 +58,7 @@ exports.addAdministratorValidator = async function (administrator) {
 exports.updateAdministratorValidator = async function (administrator) {
     isObject(administrator, 'The administrator is not object where update administrator');
     if (!administrator.id) throw Error('The administrator id  is not object where update administrator')
-    administrator = needProps(administrator, 'name', 'picture', 'publishDate', 'author');
+    administrator = needProps(administrator, 'id', 'username', 'loginPwd', 'loginId');
     const rules = {
         id: {
             presence: {allowEmpty: false},

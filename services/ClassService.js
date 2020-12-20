@@ -66,14 +66,14 @@ exports.deleteClass = async function (id) {
 }
 /**
  * 分页查询
- * @param pageNumber
+ * @param pageNum
  * @param pageSize
  * @returns {Promise<{datas: any, count: number}>}
  */
-exports.findByPage = async function ({pageNumber, pageSize}) {
-    if (!Number(pageNumber) || !Number(pageSize)) throw Error('pageNumber or pageSize is not number in getByPage')
+exports.findByPage = async function ({pageNum, pageSize}) {
+    if (!Number(pageNum) || !Number(pageSize)) throw Error('pageNum or pageSize is not number in getByPage')
     const r = await Class.findAndCountAll({
-        offset: (pageNumber - 1) * pageSize,
+        offset: (pageNum - 1) * pageSize,
         limit: +pageSize
     })
     return {

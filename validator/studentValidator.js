@@ -153,9 +153,13 @@ exports.idStudentValidator = async function (studentObj) {
 /**
  * 通过id 来查找班级是否存在
  * @param id
+ * @param options
+ * @param key
+ * @param attributes
  * @returns {Promise<string>}
  */
-async function findClassByID(id) {
+async function findClassByID(id, options, key, attributes) {
+    if (!attributes.ClassId) return undefined;
     const res = await Class.findByPk(id);
     if (res) {
         return

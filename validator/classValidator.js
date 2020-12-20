@@ -11,7 +11,7 @@ validateDateTime()
 // 验证id时否存在
 validator.validators.existClassById = getInfoByClassId;
 /**
- * 添加学生的验证器
+ * 添加班级的验证器
  * @param classObj
  * @returns {Promise<any>}
  */
@@ -44,7 +44,7 @@ exports.addClassValidator = async function (classObj) {
     return await validator.async(classObj, rules);
 }
 /**
- * 修改学生验证器
+ * 修改班级验证器
  * @param classObj
  * @returns {Promise<any>}
  */

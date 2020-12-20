@@ -41,6 +41,7 @@ exports.addBookValidator = async function (bookObj) {
                 allowEmpty: false,
             },
             datetime: {
+                dateOnly: true,
                 latest: +moment().utc().add(1, 'year')
             },
         },
@@ -66,7 +67,7 @@ exports.addBookValidator = async function (bookObj) {
 exports.updateBookValidator = async function (bookObj) {
     isObject(bookObj, 'The bookObj is not object where update book');
     if (!bookObj.id) throw Error('The book id  is not object where update book')
-    bookObj = needProps(bookObj, 'name', 'picture', 'publishDate', 'author');
+    bookObj = needProps(bookObj, 'name', 'picture', 'publishDate', 'author','id');
     const rules = {
         id: {
             presence: {allowEmpty: false},
@@ -114,7 +115,7 @@ exports.updateBookValidator = async function (bookObj) {
  * @param bookObj
  * @returns {Promise<any>}
  */
-exports.extBookIDValidator = async function (bookObj){
+exports.extBookIDValidator = async function (bookObj) {
     isObject(bookObj, 'The bookObj is not object where deal book');
     if (!bookObj.id) throw Error('The book id  is not object where deal book')
     bookObj = needProps(bookObj, 'id');
