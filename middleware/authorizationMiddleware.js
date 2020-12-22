@@ -6,7 +6,7 @@ const {decrypt} = require('./../util/crypto')
 const routeWhiteNames = [{
     method: 'POST',
     url: '/api/administrator/login'
-},{
+}, {
     method: 'GET',
     url: '/api/administrator/jsonp'
 }];
@@ -36,12 +36,14 @@ module.exports = function (req, res, next) {
     }
     // 获取请求中的cookie
     let token = (req.cookies && req.cookies.token) || '';
+    // 从请求头中获取session的信息，
+    let userInfo = req.session.userInfo;
     if (!token) {
         // 如果是不是浏览器，没有cookie,那么从请求头中获取token
         token = req.headers["authorization"] || '';
     }
-    // 判断token是否存在
-    if (!token) {
+    // 判断token是否存在,session 是否存在
+    if (!token || (userInfo === undefined || Object.keys(userInfo).length === 0)) {
         res.status(401).send(errorMsg('you don\'t have authorization to get the api request, please to login', 401))
     } else {
         req.token = decrypt(token);

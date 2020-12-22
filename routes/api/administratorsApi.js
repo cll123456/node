@@ -29,7 +29,9 @@ async function loginAdministrator(req, res, next) {
         domain: "localhost",
         maxAge: 7 * 24 * 3600 * 1000,
     });
-    res.header('authorization', value)
+    res.header('authorization', value);
+    // 设置session的用户信息
+    req.session.userInfo = r;
     return r;
 }
 
