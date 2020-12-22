@@ -1,11 +1,12 @@
 /**
  * 错误信息的包装
  * @param msg 消息
+ * @param code 错误消息码
  * @returns {{msg, code: number}} 结果收集一个错误的对象
  */
-exports.errorMsg = function (msg) {
+exports.errorMsg = function (msg,code = 500) {
     return {
-        code: 500,
+        code: code,
         msg: msg
     }
 }

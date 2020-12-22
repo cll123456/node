@@ -2,14 +2,36 @@
 const express = require('express');
 const administratorRoute = express.Router();
 const administratorSer = require('./../../services/AdministratorService');
-const {handleAsyncApi} = require('./../../util/apiUtils')
+const {handleAsyncApi} = require('./../../util/apiUtils');
+const {encrypt} = require('./../../util/crypto')
 
+administratorRoute.post('/login', handleAsyncApi(loginAdministrator, '登录成功'));
 administratorRoute.get('/', handleAsyncApi(getAllAdministrator, '查询成功'));
+administratorRoute.get('/jsonp', getAllAdministratorJsonp);
 administratorRoute.get('/:id', handleAsyncApi(getAdministratorById, '查询成功'));
 administratorRoute.post('/', handleAsyncApi(saveAdministrator, '添加成功'));
 administratorRoute.put('/:id', handleAsyncApi(uptAdministrator, '修改成功'));
 administratorRoute.delete('/:id', handleAsyncApi(delAdministrator, '删除成功'));
 
+/**
+ * 账号登录
+ * @param req
+ * @param res
+ * @param next
+ * @returns {Promise<null|*>}
+ */
+async function loginAdministrator(req, res, next) {
+    const r = await administratorSer.login({loginId: req.body.loginId, loginPwd: req.body.loginPwd})
+    // 返回一个cookie，需要进行加密处理
+    const value = encrypt(req.body.loginId);
+    res.cookie('token', value, {
+        path: "/",
+        domain: "localhost",
+        maxAge: 7 * 24 * 3600 * 1000,
+    });
+    res.header('authorization', value)
+    return r;
+}
 
 /**
  * 获取所有的图书管理员
@@ -20,6 +42,19 @@ administratorRoute.delete('/:id', handleAsyncApi(delAdministrator, '删除成功
  */
 async function getAllAdministrator(req, res, next) {
     return await administratorSer.findAllAdmins();
+}
+
+/**
+ * 通过jsonp来访问的
+ * @param req
+ * @param res
+ * @param next
+ * @returns {Promise<string>}
+ */
+async function getAllAdministratorJsonp(req, res, next) {
+    const r = await administratorSer.findAllAdmins();
+    res.send(`callback(${JSON.stringify(r)})`);
+    return;
 }
 
 /**

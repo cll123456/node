@@ -73,6 +73,7 @@ exports.findAdminById = async function (id) {
  * @constructor
  */
 exports.login = async function ({loginId, loginPwd}) {
+    if (!loginPwd || !loginId) throw new Error('loginId or loginPwd is invalid');
     if (!!loginPwd) loginPwd = md5(loginPwd);
     const res = await Administrator.findOne({
         where: {
