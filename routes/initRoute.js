@@ -6,8 +6,8 @@ const path = require('path');
 // 创建一个服务
 const app = express();
 // 使用session中间件
-const session = require('express-session')
-app.use(session({secret: 'chenliangliang',name:'nodeMysql'}))
+// const session = require('express-session')
+// app.use(session({secret: 'chenliangliang',name:'nodeMysql'}))
 
 // 使用静态资源的中间件
 app.use(express.static(path.resolve(__dirname, '../public')));
@@ -21,7 +21,7 @@ app.use(cors({
     "optionsSuccessStatus": 200 // 响应的结果
 }))
 
-// 使用cookie中间件
+// 使用cookie解析cookie中间件，返回一个cookie对象
 let cookieParser = require('cookie-parser');
 app.use(cookieParser());
 

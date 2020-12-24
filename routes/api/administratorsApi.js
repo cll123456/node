@@ -2,6 +2,7 @@
 const express = require('express');
 const administratorRoute = express.Router();
 const administratorSer = require('./../../services/AdministratorService');
+const {publish} = require("../../util/jwtUtils");
 const {handleAsyncApi} = require('./../../util/apiUtils');
 const {encrypt} = require('./../../util/crypto')
 
@@ -22,16 +23,22 @@ administratorRoute.delete('/:id', handleAsyncApi(delAdministrator, '删除成功
  */
 async function loginAdministrator(req, res, next) {
     const r = await administratorSer.login({loginId: req.body.loginId, loginPwd: req.body.loginPwd})
-    // 返回一个cookie，需要进行加密处理
-    const value = encrypt(req.body.loginId);
-    res.cookie('token', value, {
+    /** 使用cookies 和 session 来做验证登录
+     // 返回一个cookie，需要进行加密处理
+     const value = encrypt(req.body.loginId);
+     res.cookie('token', value, {
         path: "/",
         domain: "localhost",
         maxAge: 7 * 24 * 3600 * 1000,
     });
-    res.header('authorization', value);
-    // 设置session的用户信息
-    req.session.userInfo = r;
+     res.header('authorization', value);
+     // 设置session的用户信息
+     req.session.userInfo = r;
+     */
+    /**
+     * 使用jwt来进行验证登录
+     */
+     publish(res, {id: r.id})
     return r;
 }
 
