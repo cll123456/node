@@ -5,6 +5,11 @@ const {defaultLogger} = require('./../config/logger');
 const path = require('path');
 // 创建一个服务
 const app = express();
+// 使用vue页面导航中间件，必须要放在前面
+const history = require('connect-history-api-fallback');
+app.use(history({
+    index: '/index.html'
+}));
 // 使用session中间件
 // const session = require('express-session')
 // app.use(session({secret: 'chenliangliang',name:'nodeMysql'}))
@@ -16,7 +21,7 @@ app.use(express.static(path.resolve(__dirname, '../public')));
 const cors = require('cors');
 app.options('*', cors()) // 预检请求
 app.use(cors({
-    "origin": ['null', 'http://localhost:3002','http://192.168.0.106:3002'], // 维护运行的的源头
+    "origin": "*", // 维护运行的的源头
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE", // 允许的请求方法名
     "allowedHeaders": [ 'Authorization'], // 允许的请求头
     "preflightContinue": true, // 解析完后，给下一个中间件
@@ -30,8 +35,7 @@ app.use(cookieParser());
 // 使用鉴权中间件
 app.use(require('./../middleware/authorizationMiddleware'));
 
-const history = require('connect-history-api-fallback');
-app.use(history());
+
 // 使用urlencode 中间件来获取post contentType= application/x-www-form-urlencoded
 app.use(express.urlencoded({extended: true}))
 

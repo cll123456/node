@@ -7,7 +7,6 @@ export default function () {
     // 如果token存在，需要加上请求头
     if (token) {
         instance = axios.create({
-            baseURL: 'http://localhost:3000',
             timeout: '3000 * 1000',
             headers: {
                 'Authorization': 'bearer ' + token
