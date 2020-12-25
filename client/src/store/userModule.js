@@ -31,6 +31,7 @@ export default {
                 commit('setIsLoading', true);
                 const r = await whoAmI();
                 commit('setData', r);
+                localStorage.setItem('data', JSON.stringify(r));
                 commit('setIsLoading', false);
                 return r;
             } catch (err) {

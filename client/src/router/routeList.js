@@ -16,7 +16,7 @@ export const routes = [
         path: '/protect',
         component: () => import('./../views/protect.vue'),
         beforeEnter: (to, from, next) => {
-            if (!store.state.userModule.data) {
+            if (!store.state.userModule.data && !localStorage.getItem('data')) {
                 next('/login')
             } else {
                 next();
