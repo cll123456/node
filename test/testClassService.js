@@ -35,9 +35,10 @@ const AdminSer = require('../services/AdministratorService');
 //     console.log(r, '登录成功');
 // })
 
-setInterval(_ => {
-    AdminSer.findAllAdmins().then(r => {
-        console.log(r, '查询所有管理员成功');
-    })
-}, 200)
+// setInterval(_ => {
+//     AdminSer.findAllAdmins().then(r => {
+//         console.log(r, '查询所有管理员成功');
+//     })
+// }, 200)
+//
 

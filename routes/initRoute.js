@@ -14,9 +14,11 @@ app.use(express.static(path.resolve(__dirname, '../public')));
 
 // 使用cors 跨域中间件
 const cors = require('cors');
+app.options('*', cors()) // 预检请求
 app.use(cors({
-    "origin": ['null', 'http://localhost:63342'], // 维护运行的的源头
+    "origin": ['null', 'http://localhost:3002','http://192.168.0.106:3002'], // 维护运行的的源头
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE", // 允许的请求方法名
+    "allowedHeaders": [ 'Authorization'], // 允许的请求头
     "preflightContinue": true, // 解析完后，给下一个中间件
     "optionsSuccessStatus": 200 // 响应的结果
 }))
@@ -28,6 +30,8 @@ app.use(cookieParser());
 // 使用鉴权中间件
 app.use(require('./../middleware/authorizationMiddleware'));
 
+const history = require('connect-history-api-fallback');
+app.use(history());
 // 使用urlencode 中间件来获取post contentType= application/x-www-form-urlencoded
 app.use(express.urlencoded({extended: true}))
 

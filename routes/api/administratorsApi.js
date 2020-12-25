@@ -7,6 +7,7 @@ const {handleAsyncApi} = require('./../../util/apiUtils');
 const {encrypt} = require('./../../util/crypto')
 
 administratorRoute.post('/login', handleAsyncApi(loginAdministrator, '登录成功'));
+administratorRoute.get('/whoAmI', handleAsyncApi(whoAmIAdministrator, '获取成功'));
 administratorRoute.get('/', handleAsyncApi(getAllAdministrator, '查询成功'));
 administratorRoute.get('/jsonp', getAllAdministratorJsonp);
 administratorRoute.get('/:id', handleAsyncApi(getAdministratorById, '查询成功'));
@@ -113,6 +114,18 @@ async function uptAdministrator(req, res, next) {
 async function delAdministrator(req, res, next) {
     const id = req.params.id;
     return await administratorSer.deleteAdministrator(id)
+}
+
+/**
+ * 我是谁，通过token,换取用户信息
+ * @param req
+ * @param res
+ * @param next
+ * @returns {Promise<number>}
+ */
+async function whoAmIAdministrator(req, res, next) {
+    const id = req.userId;
+    return await administratorSer.findAdminById(id)
 }
 
 module.exports = administratorRoute;

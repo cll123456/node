@@ -16,7 +16,7 @@ const secret = process.env.NODE_ENV === 'development' ? 'chenliangliang' : Date.
 exports.publish = function (res, info, expr = 7 * 24 * 3600 * 1000,) {
     // 主要发给客户端的信息
     const payload = {data: info}
-    const token = jwt.sign(payload, secret,{
+    const token = jwt.sign(payload, secret, {
         expiresIn: expr
     });
     // 此时，将token,放入cookie或者，放入请求头中
@@ -45,7 +45,8 @@ exports.verify = function (req, res, next) {
         token = token.split(" ");
         token = token.length === 1 ? token[0] : token[1];
         try {
-           const r = jwt.verify(token, secret);
+            const r = jwt.verify(token, secret);
+            req.userId = r.data.id;
             next();
             return;
         } catch (err) {
