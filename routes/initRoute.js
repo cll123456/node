@@ -3,13 +3,16 @@ const express = require('express');
 const routesCfg = require('../config/route/routesConfig.json')
 const {defaultLogger} = require('./../config/logger');
 const path = require('path');
+
 // 创建一个服务
 const app = express();
+
 // 使用vue页面导航中间件，必须要放在前面
 const history = require('connect-history-api-fallback');
 app.use(history({
     index: '/index.html'
 }));
+
 // 使用session中间件
 // const session = require('express-session')
 // app.use(session({secret: 'chenliangliang',name:'nodeMysql'}))
@@ -41,6 +44,10 @@ app.use(express.urlencoded({extended: true}))
 
 // 使用json 中间件来获取post contentTpe =application/json
 app.use(express.json())
+
+// 使用apiloagerr 来记录访问api的日志
+app.use(require('./../middleware/apiLoggerMiddleware'));
+
 // 使用学生的api的基路径
 app.use('/api/student', require('./api/studentApi'));
 app.use('/api/class', require('./api/classApi'));
@@ -49,6 +56,7 @@ app.use('/api/administrator', require('./api/administratorsApi'));
 
 // 在最后使用错误中间件进行数据的返回
 app.use(require('./../middleware/errorMiddleware'));
+
 // 启动一个服务
 app.listen(routesCfg.servicePort, () => {
     defaultLogger.info('服务启动成功，监听端口3000')
