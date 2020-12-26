@@ -55,6 +55,8 @@ app.use('/api/book', require('./api/bookApi'));
 app.use('/api/administrator', require('./api/administratorsApi'));
 // 使用上传文件的中间件
 app.use('/api/upload',require('./api/uploadFileApi'))
+// 使用五年间下载的路由
+app.use('/api/download',require('./api/downloadFileApi'))
 // 在最后使用错误中间件进行数据的返回
 app.use(require('./../middleware/errorMiddleware'));
 
