@@ -53,7 +53,8 @@ app.use('/api/student', require('./api/studentApi'));
 app.use('/api/class', require('./api/classApi'));
 app.use('/api/book', require('./api/bookApi'));
 app.use('/api/administrator', require('./api/administratorsApi'));
-
+// 使用上传文件的中间件
+app.use('/api/upload',require('./api/uploadFileApi'))
 // 在最后使用错误中间件进行数据的返回
 app.use(require('./../middleware/errorMiddleware'));
 

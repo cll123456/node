@@ -1,10 +1,10 @@
 const log4js = require("log4js");
 const path = require('path');
 // appender的配置
-function appenderOptions(path){
+function appenderOptions(appenderPath){
     return  {
         type: "dateFile", // 类型是输出一个文件
-        filename: path.resolve(__dirname, "../logs", path, "logging.log"), // 文件的名称
+        filename: path.resolve(__dirname, "../logs", appenderPath, "logging.log"), // 文件的名称
         maxLogSize: 1024 * 1024, //配置 日志文件的最大字节数，然后自动换一个文件
         keepFileExt: true, // 保留后缀名
         daysToKeep: 30, // 旧日志保留多少天
