@@ -7,7 +7,7 @@ const {errorMsg} = require("../../util/apiUtils");
 
 router.get('/:fileName', async (req, res) => {
     const filePath = path.resolve(__dirname, `./../../public/upload/${req.params.fileName}`)
-    const fileExit = exitsFile(filePath);
+    const fileExit = await exitsFile(filePath);
     if (fileExit) {
         res.download(filePath, req.params.fileName);
     } else {

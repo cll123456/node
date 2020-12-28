@@ -17,6 +17,9 @@ app.use(history({
 // const session = require('express-session')
 // app.use(session({secret: 'chenliangliang',name:'nodeMysql'}))
 
+// 加载静态资源之前，先对图片进行防盗链
+app.use(require('./../middleware/protectImgMiddleware'))
+
 // 使用静态资源的中间件
 app.use(express.static(path.resolve(__dirname, '../public')));
 
@@ -57,6 +60,7 @@ app.use('/api/administrator', require('./api/administratorsApi'));
 app.use('/api/upload',require('./api/uploadFileApi'))
 // 使用五年间下载的路由
 app.use('/api/download',require('./api/downloadFileApi'))
+
 // 在最后使用错误中间件进行数据的返回
 app.use(require('./../middleware/errorMiddleware'));
 
